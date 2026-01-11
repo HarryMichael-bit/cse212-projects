@@ -8,12 +8,23 @@ public static class Arrays
     /// <returns>array of doubles that are the multiples of the supplied number</returns>
     public static double[] MultiplesOf(double number, int length)
     {
-        // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Plan:
+        // 1) Create a new array of size 'length' to hold the multiples. 
+        // 2) The first element should be 'number' itself.
+        // 3) Each subsequent element is number * (index + 1).
+        // 4) Use a for loop from i = 0 to i < length:
+        //    - Compute currentMultiple = number * (i + 1).
+        //    - Store it in result[i].
+        // 5) Return the filled array.
+        // 6) Assumptions: 'length' is a positive integer > 0, 'number' can be any double.
+        // 7) Example: MultipleOf(7, 5) => {7, 14, 21, 28, 35}.
 
-        return []; // replace this return statement with your own
+        var result = new double[length];
+        for ( int i = 0; i < length; i++)
+        {
+            result[i] = number * (i + 1);
+        }
+        return result;
     }
 
     /// <summary>
@@ -25,9 +36,32 @@ public static class Arrays
     /// </summary>
     public static void RotateListRight(List<int> data, int amount)
     {
-        // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+        // Plan: 
+        // 1) Normalize 'amount' using modulo: amount = amount % data.Count.
+        //    - If ammount == 0, no rotation is needed; return.
+        // 2) Identify the split point where the list will be cut: 
+        //    - Split index = data.Count - amount.
+        // 3) Extract the tail segment that will move to the front:
+        //    - tail = data.GetRange(splitIndex, amount).
+        // 4) Remove the tail from its original position:
+        //    - data.RemoveRange(splitIndex, amount).
+        // 5) Insert the tail at the beginning:
+        //    - data.InsertRange(0, tail).
+        // 6) This modifies 'data' in place as required. 
+        // 7) Example: data = {1,2,3,4,5,6,7,8,9}, amount = 3
+        //    - splitIndex = 9 - 3 = 6
+        //    - tail = {7,8,9}
+        //    - result = {7,8,9,1,2,3,4,5,6}
+
+        int n = data.Count;
+        if (n == 0) return;
+
+        amount = amount % n;
+        if (amount == 0) return;
+
+        int splitIndex = n - amount;
+        var tail = data.GetRange(splitIndex, amount);
+        data.RemoveRange(splitIndex, amount);
+        data.InsertRange(0, tail);
     }
 }
